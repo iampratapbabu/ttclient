@@ -18,7 +18,7 @@ const Clients = () => {
     const pathname = window.location.pathname;
 
     const [loading, setLoading] = useState(false);
-    const [clients, setClients] = useState([]);
+    const [clientsData, setClientsData] = useState([]);
   
   
     useEffect(() => {
@@ -31,13 +31,13 @@ const Clients = () => {
             const axiosRes = await axios({
                 method: "GET",
                 //headers: { 'x-access-token': localStorage.getItem('token') },
-                url: `${BASE_URL}/construct/one/v1/clients`,
+                url: `${BASE_URL}/api/v1/clients`,
                 //data: { portfolioType: ptype }
             });
             console.log("loadClients [SUCCESS]", axiosRes.data);
             if (axiosRes.data.success) {
                 setLoading(false);
-                setClients(axiosRes.data.resData);
+                setClientsData(axiosRes.data.resData);
 
             } else {
                 console.log("loadClients [HANDLED ERROR]", axiosRes);
@@ -69,7 +69,7 @@ const Clients = () => {
                     loading ?
                         <ContentLoader />
                         :
-                        <ClientTable clientsArr={clients} />
+                        <ClientTable clientsArr={clientsData} />
                 }
             </section>
         </>

@@ -18,6 +18,9 @@ const Login = () => {
         "password":""
     });
 
+    const [btnDisabled,setBtnDisabled] = useState(false);
+    const [btnText,setBtnText] = useState("Login");
+
     const handleChange = (e) =>{
         setLoginInfo({...loginInfo,[e.target.name]:e.target.value})
     }
@@ -25,6 +28,8 @@ const Login = () => {
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
+        setBtnDisabled(true);
+        setBtnText("Please Wait...");
         const loginRes = await login(loginInfo);
         if(loginRes.status && loginRes.status == "success"){
             toast.success(loginRes.message);
@@ -33,6 +38,8 @@ const Login = () => {
             //redirectRoute();
         }else{
             toast.error(loginRes.response ? loginRes.response.data.message : loginRes.message);
+            setBtnDisabled(false);
+            setBtnText("Login");
         } 
 
         
@@ -114,7 +121,7 @@ const Login = () => {
                                             </div>
                                             <div className="form_pass">
                                                 {/* <button id="login"  type="submit" className="btn submit-btn">Login</button> */}
-                                                <button type='submit' className="btn submit-btn">Login</button>
+                                                <button type='submit' className="btn submit-btn" disabled={btnDisabled}>{btnText}</button>
                                             </div>
                                         </div>
                                     </div>

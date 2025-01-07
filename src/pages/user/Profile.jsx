@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PageTitleAndSnackBar from '../../components/common/PageTitleAndSnackBar'
+import DContext from '../../context/DContext';
 
 const Profile = () => {
+
+
+  const { authState, authDispatch, logout } = useContext(DContext);
+  const { user } = authState;
+
   return (
     <>
-
-
 
       <PageTitleAndSnackBar pageTitle="Profile" />
 
@@ -18,15 +22,15 @@ const Profile = () => {
             <div class="card">
               <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-                <img src="./assets/images/profile-img.jpg" alt="Profile" class="rounded-circle" />
-                <h2>Prashant Mishra</h2>
-                <h3>Web Designer</h3>
-                <div class="social-links mt-2">
+                <img src={`https://ui-avatars.com/api/?name=${user?.client_name}&size=200`} alt="Profile" class="rounded-circle" />
+                <h2>{user?.client_name}</h2>
+                <h3>{user?.client_code}</h3>
+                {/* <div class="social-links mt-2">
                   <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                   <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
                   <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
                   <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -63,47 +67,49 @@ const Profile = () => {
                 <div class="tab-content pt-2">
 
                   <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                    <h5 class="card-title">About</h5>
+                    {/* <h5 class="card-title">About</h5>
                     <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores
                       cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt
                       iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea
-                      saepe at unde.</p>
+                      saepe at unde.</p> */}
 
                     <h5 class="card-title">Profile Details</h5>
 
                     <div class="row">
                       <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                      <div class="col-lg-9 col-md-8">Prashant Mishra</div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-lg-3 col-md-4 label">Company</div>
-                      <div class="col-lg-9 col-md-8">Lucknow, Uttar Prasesh</div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-lg-3 col-md-4 label">Job</div>
-                      <div class="col-lg-9 col-md-8">Web Designer</div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-lg-3 col-md-4 label">Country</div>
-                      <div class="col-lg-9 col-md-8">India</div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-lg-3 col-md-4 label">Address</div>
-                      <div class="col-lg-9 col-md-8">Chinhat, Lucknow, Uttar Pradesh 206028</div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-lg-3 col-md-4 label">Phone</div>
-                      <div class="col-lg-9 col-md-8">+91 9876543210</div>
+                      <div class="col-lg-9 col-md-8">{user?.client_name}</div>
                     </div>
 
                     <div class="row">
                       <div class="col-lg-3 col-md-4 label">Email</div>
-                      <div class="col-lg-9 col-md-8">dummytest@example.com</div>
+                      <div class="col-lg-9 col-md-8">{user?.client_email}</div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Client Code</div>
+                      <div class="col-lg-9 col-md-8">{user?.client_code}</div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Client Secret</div>
+                      <div class="col-lg-9 col-md-8">{user?.client_secret}</div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Services Opted</div>
+                      <div class="col-lg-9 col-md-8">
+                        {
+                          user?.client_services.map(service =>(
+                            <li>{service}</li>
+
+                          ))
+                        }
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Status</div>
+                      <div class="col-lg-9 col-md-8">{user?.status}</div>
                     </div>
 
                   </div>
