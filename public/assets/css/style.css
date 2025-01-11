@@ -52,9 +52,11 @@ h6 {
     padding: 20px;
   }
 }
-.width-min-content{
+
+.width-min-content {
   width: min-content;
 }
+
 /*--------------------------------------------------------------
 # Page Title
 --------------------------------------------------------------*/
@@ -159,9 +161,9 @@ h6 {
   background-color: #f6f9ff;
 }
 
-.form-floating>.form-control-plaintext~label, 
-.form-floating>.form-control:focus~label, 
-.form-floating>.form-control:not(:placeholder-shown)~label, 
+.form-floating>.form-control-plaintext~label,
+.form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label,
 .form-floating>.form-select~label {
   opacity: .75;
   transform: scale(.85) translateY(-1rem) translateX(0.15rem);
@@ -366,6 +368,7 @@ h6 {
   color: #4154f1;
   border-bottom: 2px solid #4154f1;
 }
+
 /*--------------------------------------------------------------
                 Authentication Page CSS
 --------------------------------------------------------------*/
@@ -754,6 +757,7 @@ h6 {
     padding-right: 0px;
   }
 }
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -947,10 +951,12 @@ h6 {
   margin: 0 10px 0 10px;
   font-size: 24px;
 }
+
 .noti-msg {
   display: flex;
   align-items: center;
 }
+
 .header-nav .notifications .notification-item h4 {
   font-size: 16px;
   font-weight: 600;
@@ -962,6 +968,7 @@ h6 {
   margin-bottom: 3px;
   color: #919191;
 }
+
 .header-nav .notifications .notification-item .time {
   background: #f1f1f1;
   padding: 1px 3px;
@@ -1038,6 +1045,19 @@ h6 {
 .header-nav .profile .dropdown-item:hover {
   background-color: #f6f9ff;
 }
+
+/*--------------------------------------------------------------
+                         Modal
+--------------------------------------------------------------*/
+.moal-dialog {
+  /* background-color: red;
+  margin-bottom: 0;
+  margin-top: 0; */
+
+}
+
+
+
 
 /*--------------------------------------------------------------
                     Sidebar
@@ -1402,6 +1422,7 @@ h6 {
   border-radius: 5px;
   max-width: 40px;
 }
+
 .welcome-card {
   background-image: url("../images/dashboard-bg.png");
   background-repeat: no-repeat;
@@ -1411,6 +1432,7 @@ h6 {
   border-radius: 5px;
   padding-top: 20px;
 }
+
 .welcome-card h1 {
   color: #fff;
   font-size: 30px;
@@ -1432,81 +1454,101 @@ h6 {
   padding: 5px 10px;
 }
 
-@media (max-width:992px){
-  
+@media (max-width:992px) {
+
   .auth_login .auth_bg .auth_content .flex50 .auth_right .login_form .login_form_inner {
     width: 100%;
     padding: 0px 50px;
   }
+
   .auth_login .auth_bg .auth_content .flex50 .auth_left .bg_caption .bg_caption_welcome h4 {
     font-size: 30px;
   }
 }
+
 @media (max-width:600px) {
-  .auth_login .auth_bg .auth_content{
+  .auth_login .auth_bg .auth_content {
     flex-direction: column;
   }
+
   .auth_login .auth_bg .auth_content .flex50 {
     max-width: 100%;
     flex: 100%;
   }
+
   .bg_caption_welcome a img {
     height: 50px;
   }
+
   .auth_login .auth_bg .auth_content .flex50 .auth_left .bg_caption .bg_caption_welcome h4 {
     font-size: 20px;
     font-weight: bold;
     line-height: 20px;
     margin: 0px;
   }
-  .auth_login .auth_bg .auth_content{
+
+  .auth_login .auth_bg .auth_content {
     height: 90%;
   }
+
   .auth_login .auth_bg .auth_content .flex50 .auth_right .login_form .login_form_inner {
     padding: 0px 10px;
   }
+
   .form-group {
     margin-bottom: 0px;
   }
-  .auth_login .auth_bg .auth_content .flex50 .auth_right .login_form{
+
+  .auth_login .auth_bg .auth_content .flex50 .auth_right .login_form {
     position: relative !important;
   }
-  .auth_login .mt-5, .my-5 {
-    margin-top: 1.5rem!important;
-  } 
+
+  .auth_login .mt-5,
+  .my-5 {
+    margin-top: 1.5rem !important;
+  }
+
   .auth_login .auth_bg .auth_content .flex50 .auth_right .login_form .login_form_inner .form-group .inputlable {
     font-size: 13px;
     margin-top: 0px;
-    margin-bottom:0px;
+    margin-bottom: 0px;
   }
-  .auth_login .auth_bg .auth_content .flex50 .auth_right .login_form .login_form_inner .form-group .form-control{
-    margin-bottom:10px;
+
+  .auth_login .auth_bg .auth_content .flex50 .auth_right .login_form .login_form_inner .form-group .form-control {
+    margin-bottom: 10px;
   }
+
   .auth_login .auth_bg .auth_content .flex50 .auth_right .login_form .login_form_inner .form_title h3 {
     font-size: 18px;
     color: #67666e;
     font-weight: 500;
     padding-top: 25px;
   }
+
   .auth_login .auth_bg .auth_content .flex50 .auth_left .bg_caption .bg_caption_welcome .bg_caption_signup a {
     padding: 10px 15px;
   }
+
   .logo img {
     max-height: 32px;
     margin-right: 15px;
   }
 }
-@media (max-width: 360px){
+
+@media (max-width: 360px) {
   .bg_caption_welcome a img {
     height: 40px;
   }
+
   .auth_login .auth_bg .auth_content .flex50 .auth_left .bg_caption .bg_caption_welcome h4 {
     font-size: 16px;
   }
+
   .auth_login .auth_bg .auth_content .flex50 .auth_left .bg_caption .bg_caption_welcome .bg_caption_signup p {
     font-size: 14px;
     line-height: 14px;
   }
+
   .auth_login .auth_bg .auth_content .flex50 .auth_left .bg_caption .bg_caption_welcome .bg_caption_signup a {
     padding: 10px 15px;
     border: 1px solid #fff;
@@ -1533,13 +1575,14 @@ h6 {
 }
 
 .form-floating .form-control,
-.form-floating .form-select  {
+.form-floating .form-select {
   border-top: 1px;
   border-left: 0;
   border-right: 0;
 }
+
 .form-control:focus,
-.form-select:focus{
+.form-select:focus {
   box-shadow: none;
   border-width: 2px;
   border-radius: 0px;
@@ -1547,12 +1590,13 @@ h6 {
 
 .form-floating .form-control,
 .form-floating .form-select {
-  padding-left:4px ;
-  padding-right:0px ;
+  padding-left: 4px;
+  padding-right: 0px;
 }
+
 .form-floating label {
-  padding-left:0px ;
-  padding-right:0px ;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 
@@ -1607,7 +1651,7 @@ h6 {
   display: block;
 }
 
-.add-experience i{
+.add-experience i {
   color: #4154f1;
 }
 
@@ -1681,12 +1725,14 @@ h6 {
 /*--------------------------------------------------------------
                         Card Listing
 --------------------------------------------------------------*/
-.course-box{
+.course-box {
   font-size: 14px;
 }
-.course-box h4{
+
+.course-box h4 {
   font-size: 18px;
 }
+
 .course-likes {
   float: right;
 }
@@ -1700,9 +1746,11 @@ h6 {
   padding-right: 10px;
   cursor: pointer;
 }
-.dashboard .top-selling .table tbody tr td{
+
+.dashboard .top-selling .table tbody tr td {
   padding: 10px 8px;
 }
+
 .tblEditBtn {
   background-color: transparent !important;
   box-shadow: none !important;
@@ -1710,6 +1758,7 @@ h6 {
   padding: 0px 2px !important;
   cursor: pointer;
 }
+
 .tblEditBtn i {
   font-size: 14px;
   position: relative;
@@ -1721,6 +1770,7 @@ h6 {
   height: 100%;
   border-radius: 5px;
 }
+
 .tblDelBtn {
   background-color: transparent !important;
   box-shadow: none !important;
@@ -1728,6 +1778,7 @@ h6 {
   padding: 0px 2px !important;
   cursor: pointer;
 }
+
 .tblDelBtn i {
   font-size: 14px;
   position: relative;
@@ -1747,6 +1798,7 @@ h6 {
   padding: 0px 2px !important;
   cursor: pointer;
 }
+
 .tblActiveBtn i {
   font-size: 14px;
   position: relative;
@@ -1758,19 +1810,23 @@ h6 {
   height: 100%;
   border-radius: 5px;
 }
-.top-selling .input-group-text{
+
+.top-selling .input-group-text {
   border-radius: 0px;
   cursor: pointer;
 }
-.table-pagination{
+
+.table-pagination {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding:0px 20px 20px;
+  padding: 0px 20px 20px;
 }
-.paginate_button a{
+
+.paginate_button a {
   border-radius: 0px !important;
 }
+
 .popup-close {
   position: absolute;
   top: 0;
@@ -1778,10 +1834,12 @@ h6 {
   background: none;
   opacity: 1;
 }
+
 .popup-close:hover {
   opacity: 1;
 }
-.popup-close:before, 
+
+.popup-close:before,
 .popup-close:after {
   position: absolute;
   right: -10px;
@@ -1792,12 +1850,15 @@ h6 {
   z-index: 9;
   top: -15px;
 }
+
 .popup-close:before {
   transform: rotate(45deg);
 }
+
 .popup-close:after {
   transform: rotate(-45deg);
 }
+
 /*--------------------------------------------------------------
                          Chat Box Css
 --------------------------------------------------------------*/
@@ -1809,6 +1870,7 @@ h6 {
   border: 1px solid #deebfd;
   box-shadow: -8px 12px 18px 0 #dadee8;
 }
+
 .card-head {
   border-radius: 2px 2px 0 0;
   border-bottom: 1px dotted rgba(0, 0, 0, 0.2);
@@ -1820,6 +1882,7 @@ h6 {
   line-height: 40px;
   min-height: 40px;
 }
+
 .card-head header {
   display: inline-block;
   padding: 11px 20px;
@@ -1828,6 +1891,7 @@ h6 {
   font-size: 17px;
   letter-spacing: 1px;
 }
+
 /*--------------------------------------------------------------
                          Footer Css
 --------------------------------------------------------------*/

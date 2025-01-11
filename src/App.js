@@ -15,6 +15,7 @@ import Revenue from './pages/Revenue';
 import Faq from './pages/user/Faq';
 import Demopage from './pages/Demopage';
 import toast, { ToastBar, Toaster } from 'react-hot-toast';
+import ClientDetail from './pages/clients/ClientDetail';
 
 const App = () => {
 
@@ -67,6 +68,7 @@ const App = () => {
                 <Route path="profile" element={<Profile />} />
                 <Route path="faq" element={<Faq />} />
                 <Route path="clients" element={<Clients />} />
+                <Route path="clients/:clientid" element={<ClientDetail />} />
                 <Route path="projects" element={<Projects />} />
                 <Route path="sites" element={<Sites />} />
                 <Route path="leads" element={<Leads />} />
