@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { BASE_URL } from '../../config';
+import { BASE_URL, BASE_URL_LMS } from '../../config';
 import ContentLoader from '../loader/ContentLoader';
 import { Link } from 'react-router-dom';
 import { countriesData, statesData } from '../../helper/AdditionalData';
@@ -16,12 +16,13 @@ const ClientTable = ({ clientsArr }) => {
     const [clientData, setClientData] = useState({
         name: "",
         email: "",
+        mobile: "",
         password: "",
         logourl: "",
-        webUrl:"",
-        emailPassword:"",
+        webUrl: "",
+        emailPassword: "",
         services: [],
-        leadServices:[],
+        leadServices: [],
     });
 
     const [clients, setClients] = useState([]);
@@ -130,21 +131,18 @@ const ClientTable = ({ clientsArr }) => {
         let clientLeadServices = clientData.leadServices || [];
 
         if (e.target.checked == true && services.includes(e.target.value)) {
-            console.log("inside main service");
             clientServices.push(e.target.value);
         } else if (e.target.checked == false) {
             clientServices = clientServices.filter(item => item !== e.target.value);
         }
 
         if (e.target.checked == true && leadServices.includes(e.target.value)) {
-            console.log("inside lead service");
-
             clientLeadServices.push(e.target.value);
         } else if (e.target.checked == false) {
             clientLeadServices = clientLeadServices.filter(item => item !== e.target.value);
         }
 
-        setClientData({ ...clientData, services: clientServices, leadServices:clientLeadServices });
+        setClientData({ ...clientData, services: clientServices, leadServices: clientLeadServices });
     }
 
     const handleSubmit = (e,) => {
@@ -155,7 +153,7 @@ const ClientTable = ({ clientsArr }) => {
 
     const getCheckBoxValue = (service) => {
 
-        if(services.includes(service)){
+        if (services.includes(service)) {
             if (clientData?.services?.includes(service)) {
                 return true;
             } else {
@@ -163,7 +161,7 @@ const ClientTable = ({ clientsArr }) => {
             }
         }
 
-        if(leadServices.includes(service)){
+        if (leadServices.includes(service)) {
             if (clientData?.leadServices?.includes(service)) {
                 return true;
             } else {
@@ -176,24 +174,34 @@ const ClientTable = ({ clientsArr }) => {
     const createClient = async () => {
         try {
             setBtnLoading(true);
-
-            const axiosRes = await axios({
+            const newClientAuthReqAxiosRes = await axios({
                 method: "POST",
                 headers: { 'x-access-token': localStorage.getItem('token') },
                 url: `${BASE_URL}/api/v1/clients`,
                 data: clientData
             });
-            console.log("create client [SUCCESS]", axiosRes.data);
-            if (axiosRes.data.status === SUCCESS) {
-                setBtnLoading(false);
-                setShow(false);
-                toast.success(axiosRes.data.message);
-                loadClients();
 
+            console.log("auth client Creation", newClientAuthReqAxiosRes);
+
+            if (newClientAuthReqAxiosRes.status === 200) {
+                const newClientLeadAxiosRes = await axios({
+                    method: "POST",
+                    headers: { 'x-access-token': localStorage.getItem('token') },
+                    url: `${BASE_URL_LMS}/api/v1/clients`,
+                    data: { ...clientData, code: newClientAuthReqAxiosRes.data.data.client_code }
+                });
+
+                console.log("lead client Creation", newClientAuthReqAxiosRes);
+                if (newClientLeadAxiosRes.status === 200) {
+                    setBtnLoading(false);
+                    setShow(false);
+                    toast.success(newClientAuthReqAxiosRes.data.message);
+                    loadClients();
+                }
             } else {
-                console.log("create client [HANDLED ERROR]", axiosRes);
+                console.log("create client [HANDLED ERROR]", newClientAuthReqAxiosRes);
                 setBtnLoading(false);
-                toast.error(axiosRes.data.message);
+                toast.error(newClientAuthReqAxiosRes.data.message);
             }
         } catch (err) {
             console.log("create client  [UNHANDLED ERROR]", err);
@@ -321,8 +329,8 @@ const ClientTable = ({ clientsArr }) => {
                                                                         <td className="left">{client?.status}</td>
 
                                                                         <td>
-                                                                            <Link className="tblEditBtn" onClick={() => toggleClientModal("update", client)}>
-                                                                                <i className="bi bi-pencil-fill"></i>
+                                                                            <Link to={`/clients/${client?.client_code}`} className="tblEditBtn">
+                                                                                <i className="bi bi-person-fill"></i>
                                                                             </Link>
                                                                             {
                                                                                 client.status === "active" ?
@@ -414,7 +422,7 @@ const ClientTable = ({ clientsArr }) => {
                                     </div>
                                     <div className="col-md-6">
                                         <div className="form-floating">
-                                            <input type="text" className="form-control" id="floatingName" placeholder="Your Name" name="name" onChange={handleChange} value={clientData?.name || ""} />
+                                            <input type="text" className="form-control" id="floatingPhone" placeholder="Your Phone" name="mobile" onChange={handleChange} value={clientData?.mobile || ""} />
                                             <label htmlFor="floatingName">Phone</label>
                                         </div>
                                     </div>
@@ -430,12 +438,18 @@ const ClientTable = ({ clientsArr }) => {
                                             <label htmlFor="floatingPassword">Client Password</label>
                                         </div>
                                     </div>
-                                    <div className="col-12">
+                                    <div className="col-6">
                                         <div className="form-floating">
                                             <input type="text" className="form-control" placeholder="Address" id="floatingTextarea" rows="4" name="logourl" onChange={handleChange} value={clientData?.logourl || ""} />
                                             <label htmlFor="floatingTextarea">Logo URL</label>
                                         </div>
                                     </div>
+                                    <div className="col-md-6">
+                                                <div className="form-floating">
+                                                    <input type="text" className="form-control" placeholder="https://mycomp.com" id="floatingTextarea" rows="4" name="webUrl" onChange={handleChange} value={clientData?.webUrl || ""} />
+                                                    <label htmlFor="floatingTextarea">Web URL</label>
+                                                </div>
+                                            </div>
                                     <div className="col-md-12">
                                         <div className="form-floating">
                                             <p>Select Services</p>
@@ -455,16 +469,12 @@ const ClientTable = ({ clientsArr }) => {
                                         clientData?.services?.includes("LEAD_SERVICE") &&
 
                                         <>
+                                     
                                             <div className="col-md-6">
                                                 <div className="form-floating">
-                                                    <input type="text" className="form-control" placeholder="Address" id="floatingTextarea" rows="4" name="webUrl" onChange={handleChange} value={clientData?.logourl || ""} />
-                                                    <label htmlFor="floatingTextarea">Web URL</label>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6">
-                                                <div className="form-floating">
-                                                    <input type="text" className="form-control" placeholder="Address" id="floatingTextarea" rows="4" name="webUrl" onChange={handleChange} value={clientData?.logourl || ""} />
+                                                    <input type="text" className="form-control" placeholder="" id="floatingTextarea" rows="4" name="emailPassword" onChange={handleChange} value={clientData?.emailPassword || ""} />
                                                     <label htmlFor="floatingTextarea">Email Secret Password</label>
+                                                    <a target='_blank' href="https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237">How to Get?</a>
                                                 </div>
                                             </div>
 

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import PageTitleAndSnackBar from '../components/common/PageTitleAndSnackBar'
-import DataTable from '../components/common/DataTable'
-import CommonModal from '../components/common/CommonModal'
+import PageTitleAndSnackBar from '../../components/common/PageTitleAndSnackBar'
+import DataTable from '../../components/common/DataTable'
+import CommonModal from '../../components/common/CommonModal'
 import { useLocation } from 'react-router';
-import ContentLoader from '../components/loader/ContentLoader';
+import ContentLoader from '../../components/loader/ContentLoader';
 import axios from 'axios';
-import { BASE_URL } from '../config';
+import { BASE_URL } from '../../config';
 import toast from 'react-hot-toast';
-import ClientTable from '../components/common/ClientTable';
+import ClientTable from '../../components/common/ClientTable';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 

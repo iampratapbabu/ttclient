@@ -64,7 +64,7 @@ const SideBar = () => {
                         </Link>
                     </li> */}
                     {
-                        user?.client_code === "ADMIN_TP_2025" &&
+                        user?.client_type === "admin" &&
                         <>
                             <li className="nav-item">
                                 <Link className="nav-link collapsed" data-bs-target="#client-nav" data-bs-toggle="collapse" to="#">
@@ -75,8 +75,10 @@ const SideBar = () => {
                                         <Link to="/clients">
                                             <i className="bi bi-person-vcard"></i><span>Clients</span>
                                         </Link>
-                                        <Link to="clients/apidocs">
-                                            <i className="bi bi-code-slash"></i><span>API Docs</span>
+                                    </li>
+                                    <li>
+                                        <Link to="/clients/1234">
+                                            <i className="bi bi-gear-wide"></i><span>Settings</span>
                                         </Link>
                                     </li>
                                 </ul>
@@ -98,7 +100,9 @@ const SideBar = () => {
                                                 <Link to="/users">
                                                     <i className="bi bi-people"></i><span>Users</span>
                                                 </Link>
-                                                <Link to="/users/apidocs">
+                                            </li>
+                                            <li>
+                                                <Link to="/leads/apidocs">
                                                     <i className="bi bi-code-slash"></i><span>API Docs</span>
                                                 </Link>
                                             </li>
