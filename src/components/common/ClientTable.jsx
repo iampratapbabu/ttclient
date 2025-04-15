@@ -9,6 +9,9 @@ import { Link } from 'react-router-dom';
 import { countriesData, statesData } from '../../helper/AdditionalData';
 import { SOMETHING_WENT_WRONG, SUCCESS } from '../../constants/strings';
 import { getDefaultProfileImage } from '../../helper/commonHelper';
+import { makeApiCall } from '../../services/httpService';
+import Select from 'react-select'
+
 
 
 const ClientTable = ({ clientsArr }) => {
@@ -27,6 +30,7 @@ const ClientTable = ({ clientsArr }) => {
 
     const [clients, setClients] = useState([]);
     const [clientsHeaders, setClientsHeaders] = useState([]);
+    const [features, setFeatures] = useState([]);
     const [loading, setLoading] = useState(true);
     const [btnLoading, setBtnLoading] = useState(false);
     const [btnMethod, setBtnMethod] = useState("create")
@@ -42,9 +46,9 @@ const ClientTable = ({ clientsArr }) => {
 
     useEffect(() => {
         loadClients();
+        loadFeatures();
     }, [])
 
-    const services = ["AUTH_SERVICE", "LEAD_SERVICE"]
     const leadServices = ["SMS", "EMAIL", "WHATSAPP", "NOTIFICATION"]
 
     const loadClients = async (page = 1, limit = 10) => {
@@ -125,12 +129,19 @@ const ClientTable = ({ clientsArr }) => {
         setClientData({ ...clientData, [e.target.name]: e.target.value });
     }
 
+    const [selectedOptions, setSelectedOptions] = useState([]);
+
+    const handleChangeDropDown = (selected) => {
+        setSelectedOptions(selected);
+        console.log("Selected options:", selected);
+    };
+
     const handleChangeTextbox = (e) => {
         console.log(e.target.name);
         let clientServices = clientData.services || [];
         let clientLeadServices = clientData.leadServices || [];
 
-        if (e.target.checked == true && services.includes(e.target.value)) {
+        if (e.target.checked == true && features.includes(e.target.value)) {
             clientServices.push(e.target.value);
         } else if (e.target.checked == false) {
             clientServices = clientServices.filter(item => item !== e.target.value);
@@ -145,7 +156,7 @@ const ClientTable = ({ clientsArr }) => {
         setClientData({ ...clientData, services: clientServices, leadServices: clientLeadServices });
     }
 
-    const handleSubmit = (e,) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (btnMethod === "create") createClient();
         if (btnMethod === "update") editClient();
@@ -153,7 +164,7 @@ const ClientTable = ({ clientsArr }) => {
 
     const getCheckBoxValue = (service) => {
 
-        if (services.includes(service)) {
+        if (features.includes(service)) {
             if (clientData?.services?.includes(service)) {
                 return true;
             } else {
@@ -271,6 +282,28 @@ const ClientTable = ({ clientsArr }) => {
         }
 
     }
+
+    const loadFeatures = async (page = 1, limit = 10) => {
+        try {
+            setLoading(true);
+            let url = `${BASE_URL}/api/v1/features`;
+
+            const apiRes = await makeApiCall("GET", null, url)
+            console.log("loadFeatures [SUCCESS]", apiRes);
+            if (apiRes.statusCode === 200) {
+                setFeatures(apiRes.data);
+            } else {
+                console.log("loadFeatures [HANDLED ERROR]", apiRes);
+                setLoading(false);
+            }
+        } catch (err) {
+            console.log("loadFeatures  [UNHANDLED ERROR]", err);
+            setLoading(false);
+
+        }
+
+    }
+
 
 
     return (
@@ -455,44 +488,50 @@ const ClientTable = ({ clientsArr }) => {
                                         <div className="form-floating">
                                             <p>Select Services</p>
 
-                                            {
-                                                services.map(service => (
-                                                    <>
-                                                        <input class="form-check-input me-2" type="checkbox" id={service} name="services" value={service} checked={getCheckBoxValue(service)} onChange={handleChangeTextbox} />{service}{" "}
-                                                    </>
-
-                                                ))
-                                            }
+                                            <Select
+                                                isSearchable={true}
+                                                isClearable={true}
+                                                isMulti
+                                                value={selectedOptions}
+                                                onChange={handleChangeDropDown}
+                                                options={features?.map(feature => (
+                                                    { value: feature.value, label: feature.name }
+                                                ))} />
                                         </div>
                                     </div>
                                     <br />
                                     {
-                                        clientData?.services?.includes("LEAD_SERVICE") &&
-
-                                        <>
-
-                                            <div className="col-md-10">
-                                                <div className="form-floating">
-                                                    <div class="input-group">
-                                                        <input type="text" className="form-control" id="floatingTextarea" rows="4" name="emailPassword" placeholder="Enter Email App Password" onChange={handleChange} value={clientData?.emailPassword || ""} />
-                                                        {/* <label htmlFor="floatingTextarea">Email Secret Password</label> */}
-                                                        <a target='_blank' href="https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237">How to Get?</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {
-                                                leadServices.map(service => (
-                                                    <>  <div className="col-md-3">
-                                                        <div className="form-floating">
-                                                            <input class="form-check-input me-1" type="checkbox" id={service} name="leadservices" value={service} checked={getCheckBoxValue(service)} onChange={handleChangeTextbox} />{service}{" "}
+                                        selectedOptions?.map(singleOption => {
+                                            if (singleOption.value == "lead_service")
+                                                return (
+                                                    <>
+                                                        <div className="col-md-10">
+                                                            <div className="form-floating">
+                                                                <div class="input-group">
+                                                                    <input type="text" className="form-control" id="floatingTextarea" rows="4" name="emailPassword" placeholder="Enter Email App Password" onChange={handleChange} value={clientData?.emailPassword || ""} />
+                                                                    {/* <label htmlFor="floatingTextarea">Email Secret Password</label> */}
+                                                                    <a target='_blank' href="https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237">How to Get?</a>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    </>
 
-                                                ))
-                                            }
-                                        </>
+                                                        {
+                                                            leadServices.map(service => (
+                                                                <>  <div className="col-md-3">
+                                                                    <div className="form-floating">
+                                                                        <input class="form-check-input me-1" type="checkbox" id={service} name="leadservices" value={service} checked={getCheckBoxValue(service)} onChange={handleChangeTextbox} />{service}{" "}
+                                                                    </div>
+                                                                </div>
+                                                                </>
+
+                                                            ))
+                                                        }
+                                                    </>
+                                                )
+
+                                        })
+
+
 
                                     }
 
@@ -567,7 +606,7 @@ const ClientTable = ({ clientsArr }) => {
                         Save Changes
                     </Button>
                 </Modal.Footer> */}
-            </Modal>
+            </Modal >
 
         </>
     )
