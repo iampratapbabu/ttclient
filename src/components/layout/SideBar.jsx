@@ -93,7 +93,7 @@ const SideBar = () => {
                                 return (
                                     <li className="nav-item">
                                         <Link className="nav-link collapsed" data-bs-target="#auth-nav" data-bs-toggle="collapse" to="#">
-                                            <i className="bi bi-people"></i><span>Auth Management</span><i className="bi bi-chevron-down ms-auto"></i>
+                                            <i className="bi bi-person-lock"></i><span>Auth Management</span><i className="bi bi-chevron-down ms-auto"></i>
                                         </Link>
                                         <ul id="auth-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                                             <li>

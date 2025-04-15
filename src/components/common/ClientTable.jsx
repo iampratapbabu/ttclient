@@ -445,11 +445,11 @@ const ClientTable = ({ clientsArr }) => {
                                         </div>
                                     </div>
                                     <div className="col-md-6">
-                                                <div className="form-floating">
-                                                    <input type="text" className="form-control" placeholder="https://mycomp.com" id="floatingTextarea" rows="4" name="webUrl" onChange={handleChange} value={clientData?.webUrl || ""} />
-                                                    <label htmlFor="floatingTextarea">Web URL</label>
-                                                </div>
-                                            </div>
+                                        <div className="form-floating">
+                                            <input type="text" className="form-control" placeholder="https://mycomp.com" id="floatingTextarea" rows="4" name="webUrl" onChange={handleChange} value={clientData?.webUrl || ""} />
+                                            <label htmlFor="floatingTextarea">Web URL</label>
+                                        </div>
+                                    </div>
                                     <div className="col-md-12">
                                         <div className="form-floating">
                                             <p>Select Services</p>
@@ -457,7 +457,7 @@ const ClientTable = ({ clientsArr }) => {
                                             {
                                                 services.map(service => (
                                                     <>
-                                                        <input type="checkbox" id={service} name="services" value={service} checked={getCheckBoxValue(service)} onChange={handleChangeTextbox} />{service}{" "}
+                                                        <input class="form-check-input me-2" type="checkbox" id={service} name="services" value={service} checked={getCheckBoxValue(service)} onChange={handleChangeTextbox} />{service}{" "}
                                                     </>
 
                                                 ))
@@ -469,19 +469,24 @@ const ClientTable = ({ clientsArr }) => {
                                         clientData?.services?.includes("LEAD_SERVICE") &&
 
                                         <>
-                                     
-                                            <div className="col-md-6">
+
+                                            <div className="col-md-10">
                                                 <div className="form-floating">
-                                                    <input type="text" className="form-control" placeholder="" id="floatingTextarea" rows="4" name="emailPassword" onChange={handleChange} value={clientData?.emailPassword || ""} />
-                                                    <label htmlFor="floatingTextarea">Email Secret Password</label>
-                                                    <a target='_blank' href="https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237">How to Get?</a>
+                                                    <div class="input-group">
+                                                        <input type="text" className="form-control" id="floatingTextarea" rows="4" name="emailPassword" placeholder="Enter Email App Password" onChange={handleChange} value={clientData?.emailPassword || ""} />
+                                                        {/* <label htmlFor="floatingTextarea">Email Secret Password</label> */}
+                                                        <a target='_blank' href="https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237">How to Get?</a>
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             {
                                                 leadServices.map(service => (
-                                                    <>
-                                                        <input type="checkbox" id={service} name="leadservices" value={service} checked={getCheckBoxValue(service)} onChange={handleChangeTextbox} />{service}{" "}
+                                                    <>  <div className="col-md-3">
+                                                        <div className="form-floating">
+                                                            <input class="form-check-input me-1" type="checkbox" id={service} name="leadservices" value={service} checked={getCheckBoxValue(service)} onChange={handleChangeTextbox} />{service}{" "}
+                                                        </div>
+                                                    </div>
                                                     </>
 
                                                 ))
