@@ -88,8 +88,8 @@ const SideBar = () => {
 
 
                     {
-                        user?.client_services.map(service => {
-                            if (service == "AUTH_SERVICE") {
+                        user?.features.map(service => {
+                            if (service?.value == "auth_service") {
                                 return (
                                     <li className="nav-item">
                                         <Link className="nav-link collapsed" data-bs-target="#auth-nav" data-bs-toggle="collapse" to="#">
@@ -110,7 +110,7 @@ const SideBar = () => {
                                     </li>
                                 )
                             }
-                            if (service == "LEAD_SERVICE") {
+                            if (service?.value == "lead_service") {
                                 return (
                                     <li className="nav-item">
                                         <Link className="nav-link collapsed" data-bs-target="#lead-nav" data-bs-toggle="collapse" to="#">

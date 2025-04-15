@@ -10,54 +10,58 @@ const Login = () => {
     //const {redirecturl} = useParams();
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const {authState,authDispatch,login,logout} = useContext(DContext);
-    const {user} = authState;
+    const { authState, authDispatch, login, logout } = useContext(DContext);
+    const { user } = authState;
 
-    const [loginInfo,setLoginInfo] = useState({
-        "code":"",
-        "password":""
+    const [loginInfo, setLoginInfo] = useState({
+        "code": "",
+        "password": ""
     });
 
-    const [btnDisabled,setBtnDisabled] = useState(false);
-    const [btnText,setBtnText] = useState("Login");
+    const [btnDisabled, setBtnDisabled] = useState(false);
+    const [btnText, setBtnText] = useState("Login");
 
-    const handleChange = (e) =>{
-        setLoginInfo({...loginInfo,[e.target.name]:e.target.value})
+    const handleChange = (e) => {
+        setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value })
     }
 
 
-    const handleSubmit = async(e) =>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        if(loginInfo.code == "" || loginInfo.password == ""){
+            toast.error("Please enter the required fields");
+            return;
+        }
         setBtnDisabled(true);
         setBtnText("Please Wait...");
         const loginRes = await login(loginInfo);
-        if(loginRes.status && loginRes.status == "success"){
+        if (loginRes.statusCode && loginRes.statusCode == 200) {
             toast.success(loginRes.message);
-            localStorage.setItem('token',loginRes.data.token)
-            authDispatch({type:"LOGIN",payload:loginRes.data.client});
+            localStorage.setItem('token', loginRes.data.token)
+            authDispatch({ type: "LOGIN", payload: loginRes.data.client });
             //redirectRoute();
-        }else{
+        } else {
             toast.error(loginRes.response ? loginRes.response.data.message : loginRes.message);
             setBtnDisabled(false);
             setBtnText("Login");
-        } 
+        }
 
-        
+
     }
 
-    const redirectRoute =() =>{
+    const redirectRoute = () => {
         let redirectUrl = searchParams.get('redirecturl')
-        if(redirectUrl !== null){
-            console.log("redirect url found",redirectUrl);
+        if (redirectUrl !== null) {
+            console.log("redirect url found", redirectUrl);
             navigate(`/${redirectUrl}`);
-        }else{
+        } else {
             navigate("/");
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
 
-    },[])
+    }, [])
 
 
     return (
@@ -73,42 +77,42 @@ const Login = () => {
                                             <img src={logo} className="mb-3" alt="" />
                                         </Link>
                                         <h4>Tej Tech</h4>
-                                        {/* <div className="bg_caption_signup">
+                                        <div className="bg_caption_signup">
                                             <p>Don't have an account?</p>
                                             <Link to="/signup">Register Now</Link>
-                                        </div> */}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="flex50">
                             <div className="auth_right">
-                                <form onSubmit = {handleSubmit} className="login_form">
+                                <form onSubmit={handleSubmit} className="login_form">
                                     <div className="login_form_inner">
                                         <div className="form_title">
                                             <h3>Login</h3>
                                         </div>
                                         <div className="form-group">
                                             <div className="form-floating">
-                                                <input type="text" 
-                                                name="code" 
-                                                className="form-control" 
-                                                id="clientcode" 
-                                                placeholder="Client Code" 
-                                                onChange={handleChange}
+                                                <input type="text"
+                                                    name="code"
+                                                    className="form-control"
+                                                    id="clientcode"
+                                                    placeholder="Client Code"
+                                                    onChange={handleChange}
                                                 />
                                                 <label for="clientcode">Client Code</label>
                                             </div>
                                         </div>
                                         <div className="form-group">
                                             <div className="form-floating">
-                                                <input 
-                                                type="password" 
-                                                name="password"
-                                                className="form-control" 
-                                                id="password" 
-                                                placeholder="Password"
-                                                onChange={handleChange}
+                                                <input
+                                                    type="password"
+                                                    name="password"
+                                                    className="form-control"
+                                                    id="password"
+                                                    placeholder="Password"
+                                                    onChange={handleChange}
                                                 />
                                                 <label for="password">Password</label>
                                             </div>

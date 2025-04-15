@@ -42,7 +42,8 @@ export const DProvider = (props) => {
                     headers: { 'x-access-token': token },
                     url: `${BASE_URL}/api/v1/clients/verify-token`,
                 });
-                if (axiosRes.data) {
+                console.log("----axiosRes", axiosRes);
+                if (axiosRes.data.statusCode == 200) {
                     console.log("loadUser [SUCCESS]", axiosRes.data);
                     authDispatch({ type: "USER_LOADED", payload: axiosRes.data.data });
 

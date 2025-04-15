@@ -323,10 +323,11 @@ const ClientTable = ({ clientsArr }) => {
                                                                             {client?.client_code} </td>
                                                                         <td>
                                                                             {client?.client_secret} </td>
-                                                                        <td className="left">{client?.client_services.map(singleService => (
-                                                                            <li>{singleService}</li>
-                                                                        ))}</td>
-                                                                        <td className="left">{client?.status}</td>
+                                                                        <td className="left">{client?.features.map(singleService => (
+                                                                            <h6>{singleService?.name}</h6>
+                                                                        ))}
+                                                                        </td>
+                                                                        <td className="left">{client?.status == "active" ? " Active 🟢" : "Inactive 🔴"} </td>
 
                                                                         <td>
                                                                             <Link to={`/clients/${client?.client_code}`} className="tblEditBtn">
