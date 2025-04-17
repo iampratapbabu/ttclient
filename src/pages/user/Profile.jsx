@@ -99,8 +99,8 @@ const Profile = () => {
                       <div class="col-lg-3 col-md-4 label">Services Opted</div>
                       <div class="col-lg-9 col-md-8">
                         {
-                          user?.client_services.map(service =>(
-                            <li>{service}</li>
+                          user?.features.map(service =>(
+                            <h6>{service?.name}</h6>
 
                           ))
                         }

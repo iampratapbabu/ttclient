@@ -1,16 +1,70 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import DContext from '../../context/DContext';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { BASE_URL } from '../../config';
+import ContentLoader from '../../components/loader/ContentLoader';
+
 
 const ClientDetail = () => {
+
+  const { commonState, commonDispatch, loadAllFeatures } = useContext(DContext);
+  const { allFeatures } = commonState;
+
   let { clientcode } = useParams();
 
   const { authState, authDispatch, logout } = useContext(DContext);
   const { user } = authState;
+  const [loading, setLoading] = useState(true);
+  const [clientInfo, setClientInfo] = useState();
 
+
+  useEffect(() => {
+    loadClientDetail();
+  }, []);
+
+  const loadClientDetail = async () => {
+    try {
+      setLoading(true);
+      const axiosRes = await axios({
+        method: "GET",
+        //headers: { 'x-access-token': localStorage.getItem('token') },
+        url: `${BASE_URL}/api/v1/clients/single/${clientcode}`,
+        //data: { portfolioType: ptype }
+      });
+      console.log("loadClientDetail [SUCCESS]", axiosRes.data);
+      if (axiosRes.data.statusCode == 200) {
+        setLoading(false);
+        setClientInfo(axiosRes.data.data);
+
+      } else {
+        console.log("loadClientDetail [HANDLED ERROR]", axiosRes);
+        setLoading(false);
+        toast.error(axiosRes.data.message);
+      }
+    } catch (err) {
+      console.log("loadClientDetail  [UNHANDLED ERROR]", err);
+      setLoading(false);
+      toast.error("Something Went Wrong " + err.message);
+
+    }
+
+  }
+
+  const getFeatureCheckedValue = (feature) =>{
+    for(let userFeature of clientInfo?.features){
+      if(userFeature.value == feature){
+        return true;
+      }
+    
+    }
+    return false;
+  }
+
+  if (loading) { return <ContentLoader /> }
   return (
     <>
-      <h2>{clientcode}</h2>
       <div className='row'>
         <div class="col-xl-12">
 
@@ -19,7 +73,7 @@ const ClientDetail = () => {
               {/* <!-- Bordered Tabs --> */}
               <ul class="nav nav-tabs nav-tabs-bordered">
 
-          
+
 
                 <li class="nav-item">
                   <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit
@@ -35,7 +89,7 @@ const ClientDetail = () => {
               </ul>
               <div class="tab-content pt-2">
 
-        
+
                 <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
 
                   {/* <!-- Profile Edit Form --> */}
@@ -56,10 +110,25 @@ const ClientDetail = () => {
                     </div> */}
 
                     <div class="row mb-3 align-items-center">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Client Name</label>
-                      <div class="col-md-8 col-lg-9">
+                      <div class="col-md-9 col-lg-12">
                         <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingPassword" placeholder="Full Name" />
+                          <input type="text" class="form-control" id="floatingPassword" placeholder="Full Name"
+                            value={clientInfo?.logourl || ""}
+                          />
+                          <label for="floatingPassword">Client Logo</label>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+
+                    <div class="row mb-3 align-items-center">
+                      <div class="col-md-9 col-lg-12">
+                        <div class="form-floating">
+                          <input type="text" class="form-control" id="floatingPassword" placeholder="Full Name"
+                            value={clientInfo?.client_name || ""}
+                          />
                           <label for="floatingPassword">Client Name</label>
                         </div>
                       </div>
@@ -76,67 +145,90 @@ const ClientDetail = () => {
                     </div> */}
 
                     <div class="row mb-3 align-items-center">
-                      <label for="company"
-                        class="col-md-4 col-lg-3 col-form-label">Client Code</label>
-                      <div class="col-md-8 col-lg-9">
+
+                      <div class="col-md-9 col-lg-12">
                         <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingCompany" placeholder="Company" />
+                          <input type="text" class="form-control" id="floatingCompany" placeholder="Company"
+                            value={clientInfo?.client_code || ""}
+                            disabled={true}
+                          />
                           <label for="floatingCompany">Client Code</label>
                         </div>
                       </div>
                     </div>
 
                     <div class="row mb-3 align-items-center">
-                      <label for="Job" class="col-md-4 col-lg-3 col-form-label">Client Secret</label>
-                      <div class="col-md-8 col-lg-9">
+                      <div class="col-md-9 col-lg-12">
                         <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingJob" placeholder="Job" />
+                          <input type="text" class="form-control" id="floatingJob" placeholder="Job"
+                            value={clientInfo?.client_secret || ""}
+                            disabled={true}
+                          />
                           <label for="floatingJob">Client Secret</label>
                         </div>
                       </div>
                     </div>
 
                     <div class="row mb-3 align-items-center">
-                      <label for="Country"
-                        class="col-md-4 col-lg-3 col-form-label">Country</label>
-                      <div class="col-md-8 col-lg-9">
+
+                      <div class="col-md-9 col-lg-12">
                         <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingCountry" placeholder="Country" />
-                          <label for="floatingCountry">Country</label>
+                          <input type="text" class="form-control" id="floatingCountry" placeholder="Email"
+                            value={clientInfo?.client_email || ""}
+                          />
+                          <label for="floatingCountry">Client Email</label>
                         </div>
                       </div>
                     </div>
 
                     <div class="row mb-3 align-items-center">
-                      <label for="Address"
-                        class="col-md-4 col-lg-3 col-form-label">Address</label>
-                      <div class="col-md-8 col-lg-9">
+
+                      <div class="col-md-9 col-lg-12">
                         <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingAddress" placeholder="Address" />
-                          <label for="floatingAddress">Address</label>
+                          <input type="text" class="form-control" id="floatingAddress" placeholder="Phone"
+                            value={clientInfo?.client_phone || ""}
+                          />
+                          <label for="floatingAddress">Client Phone</label>
                         </div>
                       </div>
                     </div>
 
+
                     <div class="row mb-3 align-items-center">
-                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
-                      <div class="col-md-8 col-lg-9">
+
+                      <div class="col-md-9 col-lg-12">
                         <div class="form-floating">
-                          <input type="number" class="form-control" id="floatingPhone" placeholder="Phone" />
-                          <label for="floatingPhone">Phone</label>
+                          <input type="text" class="form-control" id="floatingAddress" placeholder="Status"
+                            disabled
+                            value={clientInfo?.status == "active" ? " Active 🟢" : "Inactive 🔴" || ""}
+                          />
+                          <label for="floatingAddress">Client Status</label>
                         </div>
                       </div>
                     </div>
 
-                    <div class="row mb-3 align-items-center">
-                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Service Opted</label>
                       <div class="col-md-8 col-lg-9">
-                        <div class="form-floating">
-                          <input type="email" class="form-control" id="floatingEmail" placeholder="Email" />
-                          <label for="floatingEmail">Email</label>
-                        </div>
+
+                        {
+                          allFeatures.map(feature => (
+                            <div class="form-check">
+                              <input class="form-check-input" type="checkbox" id="changesMade"
+                                checked={getFeatureCheckedValue(feature?.value)} />
+                              <label class="form-check-label" for="changesMade">
+                                {feature?.name}
+                              </label>
+                            </div>
+
+                          ))
+
+                        }
                       </div>
+
+
                     </div>
+
 
                     <div class="text-center mt-5">
                       <button type="submit" class="btn btn-primary rounded-pill">Save Changes</button>
@@ -183,6 +275,8 @@ const ClientDetail = () => {
                         </div>
                       </div>
                     </div>
+
+
 
                     <div class="text-center mt-5">
                       <button type="submit" class="btn btn-primary rounded-pill">Change Password</button>

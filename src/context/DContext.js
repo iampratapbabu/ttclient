@@ -4,9 +4,13 @@ import { BASE_URL } from '../config';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 
-//auth
+//Auth
 import { login, logout, register } from './functions/AuthFunction';
 import { authReducer, initialAuthState } from './reducers/AuthReducer';
+
+//Common
+import { loadAllFeatures } from './functions/CommonFunction';
+import { commonReducer, initialCommonState } from './reducers/CommonReducer';
 
 
 
@@ -20,6 +24,7 @@ export const DProvider = (props) => {
 
 
     const [authState, authDispatch] = useReducer(authReducer, initialAuthState);
+    const [commonState, commonDispatch] = useReducer(commonReducer, initialCommonState);
 
 
 
@@ -70,6 +75,12 @@ export const DProvider = (props) => {
                 login,
                 register,
                 logout,
+
+                // common Reducer state
+                commonState,
+                commonDispatch,
+                // common global functions
+                loadAllFeatures
 
             }}>
             {props.children}

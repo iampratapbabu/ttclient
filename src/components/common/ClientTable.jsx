@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
@@ -10,11 +10,16 @@ import { countriesData, statesData } from '../../helper/AdditionalData';
 import { SOMETHING_WENT_WRONG, SUCCESS } from '../../constants/strings';
 import { getDefaultProfileImage } from '../../helper/commonHelper';
 import { makeApiCall } from '../../services/httpService';
-import Select from 'react-select'
+import Select from 'react-select';
+import DContext from '../../context/DContext';
+
 
 
 
 const ClientTable = ({ clientsArr }) => {
+
+    const { commonState, commonDispatch,loadAllFeatures } = useContext(DContext);
+    const { allFeatures } = commonState;
 
     const [clientData, setClientData] = useState({
         name: "",
@@ -30,7 +35,6 @@ const ClientTable = ({ clientsArr }) => {
 
     const [clients, setClients] = useState([]);
     const [clientsHeaders, setClientsHeaders] = useState([]);
-    const [features, setFeatures] = useState([]);
     const [loading, setLoading] = useState(true);
     const [btnLoading, setBtnLoading] = useState(false);
     const [btnMethod, setBtnMethod] = useState("create")
@@ -142,7 +146,7 @@ const ClientTable = ({ clientsArr }) => {
         let clientServices = clientData.services || [];
         let clientLeadServices = clientData.leadServices || [];
 
-        if (e.target.checked == true && features.includes(e.target.value)) {
+        if (e.target.checked == true && allFeatures.includes(e.target.value)) {
             clientServices.push(e.target.value);
         } else if (e.target.checked == false) {
             clientServices = clientServices.filter(item => item !== e.target.value);
@@ -165,7 +169,7 @@ const ClientTable = ({ clientsArr }) => {
 
     const getCheckBoxValue = (service) => {
 
-        if (features.includes(service)) {
+        if (allFeatures.includes(service)) {
             if (clientData?.services?.includes(service)) {
                 return true;
             } else {
@@ -283,7 +287,7 @@ const ClientTable = ({ clientsArr }) => {
             const apiRes = await makeApiCall("GET", null, url)
             console.log("loadFeatures [SUCCESS]", apiRes);
             if (apiRes.statusCode === 200) {
-                setFeatures(apiRes.data);
+                commonDispatch({type:"LOAD_ALL_FEATURES",payload:apiRes.data})
             } else {
                 console.log("loadFeatures [HANDLED ERROR]", apiRes);
                 setLoading(false);
@@ -486,7 +490,7 @@ const ClientTable = ({ clientsArr }) => {
                                                 isMulti
                                                 value={selectedOptions}
                                                 onChange={handleChangeDropDown}
-                                                options={features?.map(feature => (
+                                                options={allFeatures?.map(feature => (
                                                     { value: feature.value, label: feature.name }
                                                 ))} />
                                         </div>
