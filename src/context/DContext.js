@@ -29,7 +29,8 @@ export const DProvider = (props) => {
 
 
     useEffect(() => {
-        console.log("Dcontext started with api", BASE_URL);
+        //setSearchParams('query=123') it will set the query in url
+        console.log("Dcontext started with api", BASE_URL ,location ,searchParams);
         loadUser();
     }, [])
 
@@ -47,7 +48,7 @@ export const DProvider = (props) => {
                     headers: { 'x-access-token': token },
                     url: `${BASE_URL}/api/v1/clients/verify-token`,
                 });
-                if (axiosRes.data.statusCode == 200) {
+                if (axiosRes.data.statusCode === 200) {
                     console.log("loadUser [SUCCESS]", axiosRes.data);
                     authDispatch({ type: "USER_LOADED", payload: axiosRes.data.data });
 
