@@ -52,12 +52,12 @@ const ClientDetail = () => {
 
   }
 
-  const getFeatureCheckedValue = (feature) =>{
-    for(let userFeature of clientInfo?.features){
-      if(userFeature.value == feature){
+  const getFeatureCheckedValue = (feature) => {
+    for (let userFeature of clientInfo?.features) {
+      if (userFeature.value == feature) {
         return true;
       }
-    
+
     }
     return false;
   }
@@ -66,56 +66,58 @@ const ClientDetail = () => {
   return (
     <>
       <div className='row'>
-        <div class="col-xl-12">
+        <div className="col-xl-12">
 
-          <div class="card">
-            <div class="card-body pt-3">
+          <div className="card">
+            <div className="card-body pt-3">
               {/* <!-- Bordered Tabs --> */}
-              <ul class="nav nav-tabs nav-tabs-bordered">
+              <ul className="nav nav-tabs nav-tabs-bordered">
 
 
 
-                <li class="nav-item">
-                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit
+                <li className="nav-item">
+                  <button className="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit
                     Profile</button>
                 </li>
 
 
-                <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab"
+                <li className="nav-item">
+                  <button className="nav-link" data-bs-toggle="tab"
                     data-bs-target="#profile-change-password">Change Password</button>
                 </li>
 
               </ul>
-              <div class="tab-content pt-2">
+              <div className="tab-content pt-2">
 
 
-                <div class="tab-pane fade show active profile-edit pt-3" id="profile-edit">
+                <div className="tab-pane fade show active profile-edit pt-3" id="profile-edit">
 
                   {/* <!-- Profile Edit Form --> */}
                   <form>
-                    {/* <div class="row mb-3">
-                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
+                    {/* <div className="row mb-3">
+                      <label htmlFor="profileImage" className="col-md-4 col-lg-3 col-form-label">Profile
                         Image</label>
-                      <div class="col-md-8 col-lg-9">
+                      <div className="col-md-8 col-lg-9">
                         <img src="./assets/images/profile-img.jpg" alt="Profile" />
-                        <div class="pt-2">
-                          <a href="#" class="btn btn-primary btn-sm"
+                        <div className="pt-2">
+                          <a href="#" className="btn btn-primary btn-sm"
                             title="Upload new profile image"><i
-                              class="bi bi-upload"></i></a>
-                          <a href="#" class="btn btn-danger btn-sm"
-                            title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                              className="bi bi-upload"></i></a>
+                          <a href="#" className="btn btn-danger btn-sm"
+                            title="Remove my profile image"><i className="bi bi-trash"></i></a>
                         </div>
                       </div>
                     </div> */}
 
-                    <div class="row mb-3 align-items-center">
-                      <div class="col-md-9 col-lg-12">
-                        <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingPassword" placeholder="Full Name"
+                    <div className="row mb-3 align-items-center">
+                      <div className="col-md-9 col-lg-12">
+                        <div className="form-floating">
+                          <input type="text" className="form-control" id="clientLogo" placeholder="Client Logo"
                             value={clientInfo?.logourl || ""}
+                            readOnly
+
                           />
-                          <label for="floatingPassword">Client Logo</label>
+                          <label htmlFor="clientLogo">Client Logo</label>
                         </div>
                       </div>
 
@@ -123,100 +125,109 @@ const ClientDetail = () => {
 
 
 
-                    <div class="row mb-3 align-items-center">
-                      <div class="col-md-9 col-lg-12">
-                        <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingPassword" placeholder="Full Name"
+                    <div className="row mb-3 align-items-center">
+                      <div className="col-md-9 col-lg-12">
+                        <div className="form-floating">
+                          <input type="text" className="form-control" id="fullName" placeholder="Full Name"
                             value={clientInfo?.client_name || ""}
+                            readOnly
                           />
-                          <label for="floatingPassword">Client Name</label>
+                          <label htmlFor="fullName">Client Name</label>
                         </div>
                       </div>
                     </div>
 
-                    {/* <div class="row mb-3 ">
-                      <label for="about" class="col-md-4 col-lg-3 col-form-label mt-2">About</label>
-                      <div class="col-md-8 col-lg-9">
-                        <div class="form-floating">
-                          <textarea class="form-control" placeholder="About" id="floatingTextarea" style={{ height: "120px" }}></textarea>
-                          <label for="floatingTextarea">About</label>
+                    {/* <div className="row mb-3 ">
+                      <label htmlFor="about" className="col-md-4 col-lg-3 col-form-label mt-2">About</label>
+                      <div className="col-md-8 col-lg-9">
+                        <div className="form-floating">
+                          <textarea className="form-control" placeholder="About" id="floatingTextarea" style={{ height: "120px" }}></textarea>
+                          <label htmlFor="floatingTextarea">About</label>
                         </div>
                       </div>
                     </div> */}
 
-                    <div class="row mb-3 align-items-center">
+                    <div className="row mb-3 align-items-center">
 
-                      <div class="col-md-9 col-lg-12">
-                        <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingCompany" placeholder="Company"
+                      <div className="col-md-9 col-lg-12">
+                        <div className="form-floating">
+                          <input type="text" className="form-control" id="floatingCompany" placeholder="Company"
                             value={clientInfo?.client_code || ""}
                             disabled={true}
                           />
-                          <label for="floatingCompany">Client Code</label>
+                          <label htmlFor="floatingCompany">Client Code</label>
                         </div>
                       </div>
                     </div>
 
-                    <div class="row mb-3 align-items-center">
-                      <div class="col-md-9 col-lg-12">
-                        <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingJob" placeholder="Job"
+                    <div className="row mb-3 align-items-center">
+                      <div className="col-md-9 col-lg-12">
+                        <div className="form-floating">
+                          <input type="text" className="form-control" id="floatingJob" placeholder="Job"
                             value={clientInfo?.client_secret || ""}
                             disabled={true}
+                            readOnly
+
                           />
-                          <label for="floatingJob">Client Secret</label>
+                          <label htmlFor="floatingJob">Client Secret</label>
                         </div>
                       </div>
                     </div>
 
-                    <div class="row mb-3 align-items-center">
+                    <div className="row mb-3 align-items-center">
 
-                      <div class="col-md-9 col-lg-12">
-                        <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingCountry" placeholder="Email"
+                      <div className="col-md-9 col-lg-12">
+                        <div className="form-floating">
+                          <input type="text" className="form-control" id="floatingCountry" placeholder="Email"
                             value={clientInfo?.client_email || ""}
+                            readOnly
+
                           />
-                          <label for="floatingCountry">Client Email</label>
+                          <label htmlFor="floatingCountry">Client Email</label>
                         </div>
                       </div>
                     </div>
 
-                    <div class="row mb-3 align-items-center">
+                    <div className="row mb-3 align-items-center">
 
-                      <div class="col-md-9 col-lg-12">
-                        <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingAddress" placeholder="Phone"
+                      <div className="col-md-9 col-lg-12">
+                        <div className="form-floating">
+                          <input type="text" className="form-control" id="phone" placeholder="Phone"
                             value={clientInfo?.client_phone || ""}
+                            readOnly
+
                           />
-                          <label for="floatingAddress">Client Phone</label>
+                          <label htmlFor="phone">Client Phone</label>
                         </div>
                       </div>
                     </div>
 
 
-                    <div class="row mb-3 align-items-center">
+                    <div className="row mb-3 align-items-center">
 
-                      <div class="col-md-9 col-lg-12">
-                        <div class="form-floating">
-                          <input type="text" class="form-control" id="floatingAddress" placeholder="Status"
+                      <div className="col-md-9 col-lg-12">
+                        <div className="form-floating">
+                          <input type="text" className="form-control" id="status" placeholder="Status"
                             disabled
                             value={clientInfo?.status == "active" ? " Active 🟢" : "Inactive 🔴" || ""}
+                            readOnly
+
                           />
-                          <label for="floatingAddress">Client Status</label>
+                          <label htmlFor="status">Client Status</label>
                         </div>
                       </div>
                     </div>
 
-                    <div class="row mb-3">
-                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Service Opted</label>
-                      <div class="col-md-8 col-lg-9">
+                    <div className="row mb-3">
+                      <label htmlFor="fullName" className="col-md-4 col-lg-3 col-form-label">Service Opted</label>
+                      <div className="col-md-8 col-lg-9">
 
                         {
                           allFeatures.map(feature => (
-                            <div class="form-check">
-                              <input class="form-check-input" type="checkbox" id="changesMade"
+                            <div className="form-check">
+                              <input className="form-check-input" type="checkbox" id="changesMade"
                                 checked={getFeatureCheckedValue(feature?.value)} />
-                              <label class="form-check-label" for="changesMade">
+                              <label className="form-check-label" htmlFor="changesMade">
                                 {feature?.name}
                               </label>
                             </div>
@@ -230,8 +241,8 @@ const ClientDetail = () => {
                     </div>
 
 
-                    <div class="text-center mt-5">
-                      <button type="submit" class="btn btn-primary rounded-pill">Save Changes</button>
+                    <div className="text-center mt-5">
+                      <button type="submit" className="btn btn-primary rounded-pill">Save Changes</button>
                     </div>
                   </form>
                   {/* <!-- End Profile Edit Form --> */}
@@ -239,47 +250,47 @@ const ClientDetail = () => {
                 </div>
 
 
-                <div class="tab-pane fade pt-3" id="profile-change-password">
+                <div className="tab-pane fade pt-3" id="profile-change-password">
                   {/* <!-- Change Password Form --> */}
                   <form>
 
-                    <div class="row mb-3 align-items-center">
-                      <label for="currentPassword"
-                        class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <div class="form-floating">
-                          <input type="password" class="form-control" id="floatingcurrentPassword" placeholder="currentPassword" />
-                          <label for="floatingcurrentPassword">Current Password</label>
+                    <div className="row mb-3 align-items-center">
+                      <label htmlFor="currentPassword"
+                        className="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                      <div className="col-md-8 col-lg-9">
+                        <div className="form-floating">
+                          <input type="password" className="form-control" id="floatingcurrentPassword" placeholder="currentPassword" />
+                          <label htmlFor="floatingcurrentPassword">Current Password</label>
                         </div>
                       </div>
                     </div>
 
-                    <div class="row mb-3 align-items-center">
-                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New
+                    <div className="row mb-3 align-items-center">
+                      <label htmlFor="newPassword" className="col-md-4 col-lg-3 col-form-label">New
                         Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <div class="form-floating">
-                          <input type="password" class="form-control" id="floatingnewPassword" placeholder="newPassword" />
-                          <label for="floatingnewPassword">New Password</label>
+                      <div className="col-md-8 col-lg-9">
+                        <div className="form-floating">
+                          <input type="password" className="form-control" id="floatingnewPassword" placeholder="newPassword" />
+                          <label htmlFor="floatingnewPassword">New Password</label>
                         </div>
                       </div>
                     </div>
 
-                    <div class="row mb-3">
-                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter
+                    <div className="row mb-3">
+                      <label htmlFor="renewPassword" className="col-md-4 col-lg-3 col-form-label">Re-enter
                         New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <div class="form-floating">
-                          <input type="password" class="form-control" id="floatingrenewPassword" placeholder="renewPassword" />
-                          <label for="floatingrenewPassword">Re New Password</label>
+                      <div className="col-md-8 col-lg-9">
+                        <div className="form-floating">
+                          <input type="password" className="form-control" id="floatingrenewPassword" placeholder="renewPassword" />
+                          <label htmlFor="floatingrenewPassword">Re New Password</label>
                         </div>
                       </div>
                     </div>
 
 
 
-                    <div class="text-center mt-5">
-                      <button type="submit" class="btn btn-primary rounded-pill">Change Password</button>
+                    <div className="text-center mt-5">
+                      <button type="submit" className="btn btn-primary rounded-pill">Change Password</button>
                     </div>
 
 

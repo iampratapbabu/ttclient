@@ -11,7 +11,7 @@ const UserLayout = () => {
    <>
    <Header/>
    <SideBar/>
-   <main id="main" class="main">
+   <main id="main" className="main">
    <Outlet/>
    </main>
    <Footer/>

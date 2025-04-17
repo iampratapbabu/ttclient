@@ -503,7 +503,7 @@ const ClientTable = ({ clientsArr }) => {
                                                     <>
                                                         <div className="col-md-10">
                                                             <div className="form-floating">
-                                                                <div class="input-group">
+                                                                <div className="input-group">
                                                                     <input type="text" className="form-control" id="floatingTextarea" rows="4" name="emailPassword" placeholder="Enter Email App Password" onChange={handleChange} value={clientData?.emailPassword || ""} />
                                                                     {/* <label htmlFor="floatingTextarea">Email Secret Password</label> */}
                                                                     <a target='_blank' href="https://knowledge.workspace.google.com/kb/how-to-create-app-passwords-000009237">How to Get?</a>
@@ -515,7 +515,7 @@ const ClientTable = ({ clientsArr }) => {
                                                             leadServices.map(service => (
                                                                 <>  <div className="col-md-3">
                                                                     <div className="form-floating">
-                                                                        <input class="form-check-input me-1" type="checkbox" id={service} name="leadservices" value={service} checked={getCheckBoxValue(service)} onChange={handleChangeTextbox} />{service}{" "}
+                                                                        <input className="form-check-input me-1" type="checkbox" id={service} name="leadservices" value={service} checked={getCheckBoxValue(service)} onChange={handleChangeTextbox} />{service}{" "}
                                                                     </div>
                                                                 </div>
                                                                 </>

@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../config';
-import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 
 //Auth
@@ -47,7 +47,6 @@ export const DProvider = (props) => {
                     headers: { 'x-access-token': token },
                     url: `${BASE_URL}/api/v1/clients/verify-token`,
                 });
-                console.log("----axiosRes", axiosRes);
                 if (axiosRes.data.statusCode == 200) {
                     console.log("loadUser [SUCCESS]", axiosRes.data);
                     authDispatch({ type: "USER_LOADED", payload: axiosRes.data.data });

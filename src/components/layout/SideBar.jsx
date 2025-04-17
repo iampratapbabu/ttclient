@@ -88,10 +88,10 @@ const SideBar = () => {
 
 
                     {
-                        user?.features.map(service => {
+                        user?.features.map((service,i) => {
                             if (service?.value == "auth_service") {
                                 return (
-                                    <li className="nav-item">
+                                    <li className="nav-item" key={i}>
                                         <Link className="nav-link collapsed" data-bs-target="#auth-nav" data-bs-toggle="collapse" to="#">
                                             <i className="bi bi-person-lock"></i><span>Auth Management</span><i className="bi bi-chevron-down ms-auto"></i>
                                         </Link>
@@ -112,7 +112,7 @@ const SideBar = () => {
                             }
                             if (service?.value == "lead_service") {
                                 return (
-                                    <li className="nav-item">
+                                    <li className="nav-item" key={i}>
                                         <Link className="nav-link collapsed" data-bs-target="#lead-nav" data-bs-toggle="collapse" to="#">
                                             <i className="bi bi-person-badge"></i><span>Lead Management</span><i className="bi bi-chevron-down ms-auto"></i>
                                         </Link>
@@ -139,7 +139,7 @@ const SideBar = () => {
 
                             if (service?.value == "notification_service") {
                                 return (
-                                    <li className="nav-item">
+                                    <li className="nav-item"  key={i}>
                                         <Link className="nav-link collapsed" data-bs-target="#notification-nav" data-bs-toggle="collapse" to="#">
                                             <i className="bi bi-bell"></i><span>Notification Management</span><i className="bi bi-chevron-down ms-auto"></i>
                                         </Link>
