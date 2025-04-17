@@ -17,20 +17,20 @@ const DataTable = () => {
                                     <table id="myTable" className="table table-striped table-bordered table-hover table-checkable order-column valign-middle dataTable no-footer">
                                         <thead>
                                             <tr>
-                                                <th className="sorting" rowspan="1" colspan="1" style={{ width: "40px" }}></th>
-                                                <th className="sortingColumn" rowspan="1" colspan="1"> Roll No <i onclick="sortTable(1)"
+                                                <th className="sorting" rowSpan="1" colSpan="1" style={{ width: "40px" }}></th>
+                                                <th className="sortingColumn" rowSpan="1" colSpan="1"> Roll No <i onclick="sortTable(1)"
                                                     className="bi bi-sort-up"></i></th>
-                                                <th className="sortingColumn" rowspan="1" colspan="1"> Name <i onclick="sortTable(2)"
+                                                <th className="sortingColumn" rowSpan="1" colSpan="1"> Name <i onclick="sortTable(2)"
                                                     className="bi bi-sort-up"></i></th>
-                                                <th className="sortingColumn" rowspan="1" colspan="1"> Department <i onclick="sortTable(3)"
+                                                <th className="sortingColumn" rowSpan="1" colSpan="1"> Department <i onclick="sortTable(3)"
                                                     className="bi bi-sort-up"></i></th>
-                                                <th className="sortingColumn" rowspan="1" colspan="1"> Mobile <i onclick="sortTable(4)"
+                                                <th className="sortingColumn" rowSpan="1" colSpan="1"> Mobile <i onclick="sortTable(4)"
                                                     className="bi bi-sort-up"></i></th>
-                                                <th className="sortingColumn" rowspan="1" colspan="1"> Email <i onclick="sortTable(5)"
+                                                <th className="sortingColumn" rowSpan="1" colSpan="1"> Email <i onclick="sortTable(5)"
                                                     className="bi bi-sort-up"></i></th>
-                                                <th className="sortingColumn" rowspan="1" colspan="1">Admission Date <i onclick="sortTable(6)"
+                                                <th className="sortingColumn" rowSpan="1" colSpan="1">Admission Date <i onclick="sortTable(6)"
                                                     className="bi bi-sort-up"></i></th>
-                                                <th className="sortingColumn" rowspan="1" colspan="1"> Action <i onclick="sortTable(7)"
+                                                <th className="sortingColumn" rowSpan="1" colSpan="1"> Action <i onclick="sortTable(7)"
                                                     className="bi bi-sort-up"></i></th>
                                             </tr>
                                         </thead>

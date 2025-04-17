@@ -18,7 +18,7 @@ import DContext from '../../context/DContext';
 
 const ClientTable = ({ clientsArr }) => {
 
-    const { commonState, commonDispatch,loadAllFeatures } = useContext(DContext);
+    const { commonState, commonDispatch, loadAllFeatures } = useContext(DContext);
     const { allFeatures } = commonState;
 
     const [clientData, setClientData] = useState({
@@ -249,13 +249,13 @@ const ClientTable = ({ clientsArr }) => {
 
     }
 
-    const changeStatus = async (clientId, clientStatus) => {
+    const changeStatus = async (clientCode, clientStatus) => {
         try {
             clientStatus = clientStatus == "active" ? "inactive" : "active";
             const axiosRes = await axios({
                 method: "PATCH",
                 //headers: { 'x-access-token': localStorage.getItem('token') },
-                url: `${BASE_URL}/api/v1/clients/single/${clientId}`,
+                url: `${BASE_URL}/api/v1/clients/single/${clientCode}`,
                 data: { status: clientStatus }
             });
             console.log("changeStatus [SUCCESS]", axiosRes.data);
@@ -287,7 +287,7 @@ const ClientTable = ({ clientsArr }) => {
             const apiRes = await makeApiCall("GET", null, url)
             console.log("loadFeatures [SUCCESS]", apiRes);
             if (apiRes.statusCode === 200) {
-                commonDispatch({type:"LOAD_ALL_FEATURES",payload:apiRes.data})
+                commonDispatch({ type: "LOAD_ALL_FEATURES", payload: apiRes.data })
             } else {
                 console.log("loadFeatures [HANDLED ERROR]", apiRes);
                 setLoading(false);
@@ -325,7 +325,7 @@ const ClientTable = ({ clientsArr }) => {
                                                         <tr>
                                                             {
                                                                 clientsHeaders && clientsHeaders.map((clientHeader) => (
-                                                                    <th className="sortingColumn" rowspan="1" colspan="1">{clientHeader?.label}</th>
+                                                                    <th className="sortingColumn" rowSpan="1" colSpan="1">{clientHeader?.label}</th>
                                                                 ))
                                                             }
 
@@ -335,7 +335,7 @@ const ClientTable = ({ clientsArr }) => {
                                                         {
                                                             clients && clients.map((client, idx) => {
                                                                 return (
-                                                                    <tr className="gradeX odd">
+                                                                    <tr className="gradeX odd" key={idx}>
                                                                         <td className="patient-img sorting_1">
                                                                             {
                                                                                 client?.logourl != "" && client.logourl != null ?
@@ -365,13 +365,13 @@ const ClientTable = ({ clientsArr }) => {
                                                                             {
                                                                                 client.status === "active" ?
                                                                                     <>
-                                                                                        <Link className="tblDelBtn" onClick={() => changeStatus(client.id, client?.status)}>
+                                                                                        <Link className="tblDelBtn" onClick={() => changeStatus(client.client_code, client?.status)}>
                                                                                             <i className="bi bi-trash-fill"></i>
                                                                                         </Link>
                                                                                     </>
                                                                                     :
                                                                                     <>
-                                                                                        <Link className="tblActiveBtn" onClick={() => changeStatus(client?.id, client?.status)}>
+                                                                                        <Link className="tblActiveBtn" onClick={() => changeStatus(client?.client_code, client?.status)}>
                                                                                             <i className="bi bi-person-bounding-box"></i>
                                                                                         </Link>
                                                                                     </>
