@@ -133,6 +133,7 @@ const ClientTable = ({ clientsArr }) => {
 
     const handleChangeDropDown = (selected) => {
         setSelectedOptions(selected);
+        setClientData({ ...clientData, services: selected })
         console.log("Selected options:", selected);
     };
 
@@ -195,20 +196,11 @@ const ClientTable = ({ clientsArr }) => {
             console.log("auth client Creation", newClientAuthReqAxiosRes);
 
             if (newClientAuthReqAxiosRes.status === 200) {
-                const newClientLeadAxiosRes = await axios({
-                    method: "POST",
-                    headers: { 'x-access-token': localStorage.getItem('token') },
-                    url: `${BASE_URL_LMS}/api/v1/clients`,
-                    data: { ...clientData, code: newClientAuthReqAxiosRes.data.data.client_code }
-                });
+                setBtnLoading(false);
+                setShow(false);
+                toast.success(newClientAuthReqAxiosRes.data.message);
+                loadClients();
 
-                console.log("lead client Creation", newClientAuthReqAxiosRes);
-                if (newClientLeadAxiosRes.status === 200) {
-                    setBtnLoading(false);
-                    setShow(false);
-                    toast.success(newClientAuthReqAxiosRes.data.message);
-                    loadClients();
-                }
             } else {
                 console.log("create client [HANDLED ERROR]", newClientAuthReqAxiosRes);
                 setBtnLoading(false);
@@ -502,7 +494,7 @@ const ClientTable = ({ clientsArr }) => {
                                     <br />
                                     {
                                         selectedOptions?.map(singleOption => {
-                                            if (singleOption.value == "lead_service")
+                                            if (singleOption.value == "notification_service")
                                                 return (
                                                     <>
                                                         <div className="col-md-10">

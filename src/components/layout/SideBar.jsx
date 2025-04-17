@@ -114,7 +114,7 @@ const SideBar = () => {
                                 return (
                                     <li className="nav-item">
                                         <Link className="nav-link collapsed" data-bs-target="#lead-nav" data-bs-toggle="collapse" to="#">
-                                            <i className="bi bi-bell"></i><span>Lead Management</span><i className="bi bi-chevron-down ms-auto"></i>
+                                            <i className="bi bi-person-badge"></i><span>Lead Management</span><i className="bi bi-chevron-down ms-auto"></i>
                                         </Link>
                                         <ul id="lead-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                                             <li>
@@ -129,6 +129,33 @@ const SideBar = () => {
                                             </li>
                                             <li>
                                                 <Link to="/leads/apidocs">
+                                                    <i className="bi bi-code-slash"></i><span>API Docs</span>
+                                                </Link>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                )
+                            }
+
+                            if (service?.value == "notification_service") {
+                                return (
+                                    <li className="nav-item">
+                                        <Link className="nav-link collapsed" data-bs-target="#notification-nav" data-bs-toggle="collapse" to="#">
+                                            <i className="bi bi-bell"></i><span>Notification Management</span><i className="bi bi-chevron-down ms-auto"></i>
+                                        </Link>
+                                        <ul id="notification-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
+                                            <li>
+                                                <Link to="/notifications">
+                                                    <i className="bi bi-person-badge"></i><span>Notifications</span>
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/notifications/settings">
+                                                    <i className="bi bi-gear-wide"></i><span>Settings</span>
+                                                </Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/notifications/apidocs">
                                                     <i className="bi bi-code-slash"></i><span>API Docs</span>
                                                 </Link>
                                             </li>
